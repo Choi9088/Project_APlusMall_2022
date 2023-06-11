@@ -56,9 +56,16 @@
 
 ### 4-3. 상품목록 및 상세페이지
 
-<img width="600" alt="스크린샷 2023-06-11 11 19 18" src="https://github.com/Choi9088/Project_APlusMall_2022/assets/132661247/eb2470e0-3707-4085-a180-4014dad004c9">
-
-<img width="600" alt="스크린샷 2023-06-11 11 19 37" src="https://github.com/Choi9088/Project_APlusMall_2022/assets/132661247/bbe40aca-bedf-4b7c-bab2-ec5266b7082a">
+<table>
+  <tr>
+    <td>
+      <img width="600" alt="스크린샷 2023-06-11 11 19 18" src="https://github.com/Choi9088/Project_APlusMall_2022/assets/132661247/eb2470e0-3707-4085-a180-4014dad004c9">
+    </td>
+    <td>
+      <img width="600" alt="스크린샷 2023-06-11 11 19 37" src="https://github.com/Choi9088/Project_APlusMall_2022/assets/132661247/bbe40aca-bedf-4b7c-bab2-ec5266b7082a">
+    </td>
+  <tr>
+</table>
 
 - DB의 상품목록, 상품정보를 웹 페이지에 출력
 - 상품목록페이지 : 카테고리를 부여해 상품의 종류별로 선택하여 조회
