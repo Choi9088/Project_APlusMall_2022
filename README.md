@@ -37,7 +37,7 @@
 
 ### 4-1. 메인페이지
 
-![https://user-images.githubusercontent.com/112682766/202067047-124c40d6-4dc6-40fc-a98b-236c08327964.png](https://user-images.githubusercontent.com/112682766/202067047-124c40d6-4dc6-40fc-a98b-236c08327964.png)
+<img width="600" alt="스크린샷 2023-06-11 11 18 56" src="https://github.com/Choi9088/Project_APlusMall_2022/assets/132661247/145c4fef-7db5-42e1-a410-cf3030c4a02a">
 
 - Tiles설정을 이용해 전체 페이지에 헤더와 푸터 일괄적용
 - 부트스트랩으로 슬라이더를 적용시켜 이벤트, 상품페이지로 이동 구현
@@ -46,6 +46,9 @@
 
 ### 4-2. 회원가입
 
+<img width="600" alt="스크린샷 2023-06-11 11 16 36" src="https://github.com/Choi9088/Project_APlusMall_2022/assets/132661247/c40036b5-9a88-4991-9321-2543d7394e97">
+
+
 - 회원가입 기능 구현
 - ID중복여부, 비밀번호 일치여부, 주소 검색 및 입력기능 구현
 
@@ -53,9 +56,9 @@
 
 ### 4-3. 상품목록 및 상세페이지
 
-![https://user-images.githubusercontent.com/112682766/202066716-4cf70022-966f-4a4e-baae-61fa4e880d50.png](https://user-images.githubusercontent.com/112682766/202066716-4cf70022-966f-4a4e-baae-61fa4e880d50.png)
+<img width="600" alt="스크린샷 2023-06-11 11 19 18" src="https://github.com/Choi9088/Project_APlusMall_2022/assets/132661247/eb2470e0-3707-4085-a180-4014dad004c9">
 
-![https://user-images.githubusercontent.com/112682766/202066731-2f938777-ed0f-4b28-836c-0976a7c74640.png](https://user-images.githubusercontent.com/112682766/202066731-2f938777-ed0f-4b28-836c-0976a7c74640.png)
+<img width="600" alt="스크린샷 2023-06-11 11 19 37" src="https://github.com/Choi9088/Project_APlusMall_2022/assets/132661247/bbe40aca-bedf-4b7c-bab2-ec5266b7082a">
 
 - DB의 상품목록, 상품정보를 웹 페이지에 출력
 - 상품목록페이지 : 카테고리를 부여해 상품의 종류별로 선택하여 조회
