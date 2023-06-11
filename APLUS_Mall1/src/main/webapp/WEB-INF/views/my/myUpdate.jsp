@@ -240,8 +240,10 @@
 	<!-- 주소검색 API(카카오) -->
 	<script
 	   src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 	<script
 	   src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
 	<script src="/resources/js/common.js" charset="utf-8"></script>
 
 </body>
