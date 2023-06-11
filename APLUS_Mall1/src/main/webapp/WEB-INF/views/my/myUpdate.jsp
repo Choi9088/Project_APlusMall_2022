@@ -92,6 +92,7 @@
 }
 </style>
 </head>
+
 <body>
    <div id="wrap">
       <div class="subjecet">회원 정보수정</div>
