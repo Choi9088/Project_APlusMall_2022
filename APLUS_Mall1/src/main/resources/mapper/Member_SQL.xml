@@ -55,7 +55,7 @@
 
 	<!-- 아이디 중복검사 -->
 	<select id="idCheck" resultType="int">
-		SELECT count(*)
+		SELECT count(id)
 		FROM member
 		WHERE
 		id = #{id}

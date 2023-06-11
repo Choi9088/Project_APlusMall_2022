@@ -31,7 +31,7 @@
 			<div>
 				<div class="sub_title">아이디</div>
 				
-				<input class="input_box_l id_input" name="id" id="id" placeholder="아이디">
+				<input class="id_input" name="id" id="id" placeholder="아이디">
 				
 				<span class="id_input_re_1">사용 가능한 아이디입니다.</span> 
 				<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
@@ -102,29 +102,25 @@
 	<script>
 
 // id 중복검사
-		$('.id_input').on(
-				"propertychange change keyup paste input",
-				function() {
-					var id = $('.id_input').val();
-					var data = {
-						id : id
-					}
-					if (id == "") {
-						$('.id_input_re_1').css("display", "none");
-					} else {
-						$.ajax({
-							type : "post",
-							url : "/memberIdChk",
-							data : data,
-							success : function(result) {
+		$('.id_input').on("change keyup paste input",function() { //id가 'id_input'인 값을 사용할거야
+					var id = $('.id_input').val(); //id 변수로 id_input에 입력된 값을 선언
+					var data = { id : id } // 이게 뭔지 모르겠ㅇ...id값으로 id를 받는다는거같은데
+					
+					if (id == "") { //id에 입력된 값이 없는경우 
+						$('.id_input_re_1').css("display", "none"); //id_input_re_1에 해당하는 항목을 안 보이게 한다
+						$('.id_input_re_2').css("display", "none"); //id_input_re_2에 해당하는 항목을 안 보이게 한다
+					} else { //id에 입력된 값이 있으면
+						$.ajax({ 
+							type : "post", //전송은 post방식으로 
+							url : "/memberIdChk", //Controller에서 memberIdChk메소드를 찾아 실행한다.
+							data : data, 
+							success : function(result) { //Controller실행결과(return)가 result로 전달되어 아래 코드로 넘어간다.
 								//console.log("확인 : " + result);
-								if (result != 'fail') {
-									$('.id_input_re_1').css("display",
-											"inline-block");
-									$('.id_input_re_2').css("display", "none");
-								} else {
-									$('.id_input_re_2').css("display",
-											"inline-block");
+								if (result != 'fail') { //return값이 fail 인 경우
+									$('.id_input_re_1').css("display", "inline-block"); 
+									$('.id_input_re_2').css("display", "none"); //얘를 안 하니까 두 문구가 같이뜨네요?
+								} else { //return 값이 success인 경우 
+									$('.id_input_re_2').css("display", "inline-block");
 									$('.id_input_re_1').css("display", "none");
 								}
 							}
@@ -260,24 +256,26 @@
 				} else if ($("#mobile").val() == "") {
 					alert("휴대폰번호를 입력해주세요");
 					$("#mobile").focus();
-					//이메일 공백확인
+					//이메일 공백, 인증번호 공백, 일치여부 확인
 				} else if ($("#email").val() == "") {
 					alert("이메일을 입력해주세요");
-					$("#email").focus();
-					//주소 공백확인
-				} else if ($("#postcode").val() == "") {
-					alert("주소 입력해주세요");
-					$("#postcode").focus();
-				} else if ($("#addressDetail").val() == "") {
-					alert("상세주소를 입력해주세요");
-					$("#postcode").focus();
-					//이메일 인증번호 공백, 일치여부 확인
-				} else if ($("#mail_check").val() == "") {
+					$("#email").focus(); 
+				}/*  else if ($("#mail_check").val() == "") {
 					alert("이메일 인증번호를 입력해주세요");
 					$("#postcode").focus();
 				} else if ($("#mail_check").val() != code) {
 					alert("인증번호를 다시확인해주세요 ");
 					$("#mail_check").focus();
+				}
+				이메일 인증만 잠시 주석처리...
+				*/
+					//주소 공백확인
+				else if ($("#postcode").val() == "") {
+					alert("주소 입력해주세요");
+					$("#postcode").focus();
+				} else if ($("#addressDetail").val() == "") {
+					alert("상세주소를 입력해주세요");
+					$("#postcode").focus();
 					//이상없을경우 회원가입 진행(/joinAction)
 				} else {
 					$("#join_form").attr("action", "/joinAction").submit();

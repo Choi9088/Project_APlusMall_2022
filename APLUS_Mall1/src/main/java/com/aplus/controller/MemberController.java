@@ -54,18 +54,16 @@ public class MemberController {
 	@ResponseBody
 	public String memberIdChkPOST(String id) throws Exception {
 
-		/* logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> memberIdChk 진입"); */
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> memberIdChk 진입");
+		
 		logger.info("vo 진입" + id);
 		int result = memberService.idCheck(id);
 
 		logger.info("결과값 : " + result);
 
 		if (result != 0) {
-
 			return "fail"; /* 중복아이디가 존재하면 fail */
-
 		} else {
-
 			return "success"; /* 중복아이디가 존재하지 않는다면 success */
 		}
 	}

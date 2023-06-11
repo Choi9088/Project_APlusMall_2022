@@ -31,35 +31,6 @@
    margin-bottom: 5px;
 }
 
-/* sub_title로 변경시키고 삭제한 class들 :
-.id_name{ font-size: 25px; font-weight: bold; }
-.pw_name{ font-size: 25px; font-weight: bold; }
-.pwck_name{ font-size: 25px; font-weight: bold; }
-.user_name{ font-size: 25px; font-weight: bold; }
-.mail_name{ font-size: 25px; font-weight: bold; }
-.address_name{ font-size: 25px; font-weight: bold; } */
-
-
-/* 입력 영역별 div박스 삭제함
-.id_wrap{ width: 100%; }
-.pw_wrap{ width: 100%; }
-.pwck_wrap{ width: 100%;}
-.user_wrap{ width: 100%; }
-.mobile_input{ width: 100%; }
-.mail_wrap{ width: 100%; }
-.address_wrap{ width: 100%;} 
-*/
-
-/* input이랑 input box를 별도로 구분해뒀길래 input태그만 사용함
-.id_input_box{ border: 1px solid black; height:31px; padding: 10px 14px; }
-.pw_input_box{ border: 1px solid black; height:31px; padding: 10px 14px; }
-.pwck_input_box{ border: 1px solid black; height:31px; padding: 10px 14px; }
-.user_input_box{ border: 1px solid black; height:31px; padding: 10px 14px; }
-.mail_input_box{ border: 1px solid black; height:31px; padding: 10px 14px; }
-.address_input_2_box{ border: 1px solid black; height:31px; padding: 10px 14px; }
-.address_input_3_box{ border: 1px solid black; height:31px; padding: 10px 14px; }
-*/
-
 /* input박스들 : 속성 동일한데 일부 ajax에 사용되는게 있어서 한개로 통일 안시킴 */
 .id_input{
    width:100%;
@@ -150,12 +121,6 @@
       background-color:lightgray;
       border-radius : 10px;
    } 
-
-   /* 이메일 인증번호 발송 후 회색css 해제 : css넣을 필요 없어서 삭제함
-   #mail_check_input_box_true{
-       background-color: none;
-      border-radius : 10px;
-   } */
    
    /* 메일인증 확인버튼*/
    .mail_check_button{
