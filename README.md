@@ -1,4 +1,4 @@
-## Project_APlusMall_[더조은]팀 프로젝트
+## Project_APlusMall_[더조은]팀 프로젝트 (작성중)
 
 ### 1. 프로젝트 개요
 
@@ -28,8 +28,10 @@
 ### 3. 설계
 
 - **UseCaseDiagram**
+![https://user-images.githubusercontent.com/112682766/202073982-d789066e-8de7-4f1e-b5a0-668ac6764ac0.png](https://user-images.githubusercontent.com/112682766/202073982-d789066e-8de7-4f1e-b5a0-668ac6764ac0.png)
 
 - **ERD**
+![erd](https://user-images.githubusercontent.com/112682766/204685853-c14204eb-72c8-434f-9de2-8f79a9048d2d.png)
 
 <br>
 
@@ -37,15 +39,25 @@
 
 #### 4-1. 메인페이지
 
-- Tiles설정을 이용해 전체 웹 페이지에 헤더와 푸터 간단하게 적용
+![https://user-images.githubusercontent.com/112682766/202067047-124c40d6-4dc6-40fc-a98b-236c08327964.png](https://user-images.githubusercontent.com/112682766/202067047-124c40d6-4dc6-40fc-a98b-236c08327964.png)
+
+- Tiles설정을 이용해 전체 페이지에 헤더와 푸터 일괄적용
 - 부트스트랩으로 슬라이더를 적용시켜 이벤트, 상품페이지로 이동 구현
+
+<br>
 
 #### 4-2. 회원가입
 
 - 회원가입 기능 구현
 - ID중복여부, 비밀번호 일치여부, 주소 검색 및 입력기능 구현
 
+<br>
+
 #### 4-3. 상품목록 및 상세페이지
+
+![https://user-images.githubusercontent.com/112682766/202066716-4cf70022-966f-4a4e-baae-61fa4e880d50.png](https://user-images.githubusercontent.com/112682766/202066716-4cf70022-966f-4a4e-baae-61fa4e880d50.png)
+
+![https://user-images.githubusercontent.com/112682766/202066731-2f938777-ed0f-4b28-836c-0976a7c74640.png](https://user-images.githubusercontent.com/112682766/202066731-2f938777-ed0f-4b28-836c-0976a7c74640.png)
 
 - DB의 상품목록, 상품정보를 웹 페이지에 출력
 - 상품목록페이지 : 카테고리를 부여해 상품의 종류별로 선택하여 조회
