@@ -150,6 +150,7 @@
          <button type="button" id="btt" onclick="removeMember();">탈퇴하기</button>
       </form>
    </div>
+   
    <script>
       //회원정보 수정 버튼
       $(document).ready(function() {
@@ -230,18 +231,18 @@
       }
    </script>
    
-<script src="https://code.jquery.com/jquery-3.4.1.js"
-   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-   crossorigin="anonymous"></script>
-   
-<script src="/resources/js/bootstrap.min.js"></script>
-
-<!-- 주소검색 API(카카오) -->
-<script
-   src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="/resources/js/common.js" charset="utf-8"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"
+	   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	   crossorigin="anonymous"></script>
+	   
+	<script src="/resources/js/bootstrap.min.js"></script>
+	
+	<!-- 주소검색 API(카카오) -->
+	<script
+	   src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script
+	   src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="/resources/js/common.js" charset="utf-8"></script>
 
 </body>
 </html>
