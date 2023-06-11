@@ -1,6 +1,4 @@
-## Project_APlusMall_[더조은]팀 프로젝트 (작성중)
-
-### 1. 프로젝트 개요
+## ⭐ Project_APlusMall_[더조은]팀 프로젝트(작성중) ⭐ <br><br><br> 1. 프로젝트 개요
 
 - **주제 :** SpringMVC패턴을 활용한 웹 쇼핑몰 구현
 
@@ -15,7 +13,7 @@
 
 <br>
 
-### 2. 사용기술
+## 2. 사용기술
 
 - **Front :** Html, CSS, JavaScript(Jquary,ajax), JSP 2.3
 
@@ -25,7 +23,7 @@
 
 <br>
 
-### 3. 설계
+## 3. 설계
 
 - **UseCaseDiagram**
 ![https://user-images.githubusercontent.com/112682766/202073982-d789066e-8de7-4f1e-b5a0-668ac6764ac0.png](https://user-images.githubusercontent.com/112682766/202073982-d789066e-8de7-4f1e-b5a0-668ac6764ac0.png)
@@ -35,9 +33,9 @@
 
 <br>
 
-### 4. UI 및 주요기능
+## 4. UI 및 주요기능
 
-#### 4-1. 메인페이지
+### 4-1. 메인페이지
 
 ![https://user-images.githubusercontent.com/112682766/202067047-124c40d6-4dc6-40fc-a98b-236c08327964.png](https://user-images.githubusercontent.com/112682766/202067047-124c40d6-4dc6-40fc-a98b-236c08327964.png)
 
@@ -46,14 +44,14 @@
 
 <br>
 
-#### 4-2. 회원가입
+### 4-2. 회원가입
 
 - 회원가입 기능 구현
 - ID중복여부, 비밀번호 일치여부, 주소 검색 및 입력기능 구현
 
 <br>
 
-#### 4-3. 상품목록 및 상세페이지
+### 4-3. 상품목록 및 상세페이지
 
 ![https://user-images.githubusercontent.com/112682766/202066716-4cf70022-966f-4a4e-baae-61fa4e880d50.png](https://user-images.githubusercontent.com/112682766/202066716-4cf70022-966f-4a4e-baae-61fa4e880d50.png)
 
