@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+//아래에 있는애들을 다 임포트 해야함? 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,10 +24,9 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
-
 	/* 상품 리스트 페이지 (카테고리-대분류 */
 	@RequestMapping(value = "/itemListL", method = RequestMethod.GET)
-	public String itemListL(ItemVO vo, Model model, HttpServletResponse response, Integer cat) throws Exception {
+	public String itemListL(Model model, HttpServletResponse response, Integer cat) throws Exception {
 		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 상품 리스트 페이지 진입");
 
 		List<ItemVO> list = itemService.itemListL(cat);
@@ -38,7 +38,7 @@ public class ItemController {
 
 	/* 상품 리스트 페이지 (카테고리-중분류) */
 	@RequestMapping(value = "/itemList", method = RequestMethod.GET)
-	public String itemList(ItemVO vo, Model model, HttpServletResponse response, Integer cat) throws Exception {
+	public String itemList(Model model, HttpServletResponse response, Integer cat) throws Exception {
 		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 상품 리스트 페이지 진입");
 
 		List<ItemVO> list = itemService.itemList(cat);
