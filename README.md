@@ -45,11 +45,29 @@
 <details><summary><h3> 메인페이지 구현 코드</h3></summary>
 <p>
 
-#### .jsp
-```ruby
+#### (1).jsp
+```html
    
 ```
+#### (2)Controller.java
+```java
 
+```
+
+#### (3)ServiceImpl.java
+```java
+
+```
+
+#### (4)DAOImpl.java
+```java
+
+```
+  
+#### (5)_SQL.xml
+```xml
+
+```
 </p>
 </details>
 
@@ -68,8 +86,15 @@
 
 #### (1-1)join.jsp(body)
 ```html
-(...생략...)
-	
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  (...)
+</head>
+
 <body>
 	<!-- wrapper : 화면 전체랩 -->
 	<div class="wrap">
@@ -79,9 +104,9 @@
 			<!-- 아이디 -->
 			<div>
 				<div class="sub_title">아이디</div>
-
+				
 				<input class="id_input" name="id" id="id" placeholder="아이디">
-
+				
 				<span class="id_input_re_1">사용 가능한 아이디입니다.</span> 
 				<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
 			</div>
@@ -89,10 +114,10 @@
 			<!-- 비밀번호 -->
 			<div>
 				<div class="sub_title">비밀번호</div>
-
+				
 				<input class="pw_input" type="password" id="pw" name="pw" placeholder="비밀번호"/> 
 				<input class="pwck_input" type="password" id="pwcheck" placeholder="비밀번호 확인"/>
-
+				
 				<div>
 					<!-- 비밀번호 일치여부 확인 -->
 					<font id="chkNotice" size="3"></font>
@@ -147,7 +172,9 @@
 		<!-- form 끝 -->
 	</div>
 	<!-- 화면 전체랩 끝 -->
+
 </body>
+</html>
 ```
 
 #### (1-2)join.jsp(script)  
@@ -435,8 +462,180 @@ public class MemberDAOimpl implements MemberDAO {
 <summary><h3> 상품목록 페이지 구현 코드</h3></summary>
 <p>
 
-#### (1-1)item.jsp(body)
+#### (1-1)itemList.jsp(body)
+```html
+(...생략...)
+
+<body>
+  <c:forEach items="${itemlist}" var="itemlist">
+    <div class="card h-100" OnClick="location.href ='/itemDetail?num=${itemlist.itemnum}'" style="cursor:pointer;" >
+       
+        <!-- Product image-->
+        <a>
+          <img class="card-img-top" src="${itemlist.itemimg}" alt="..." />
+        </a>
+            
+        <!-- Product name-->
+        <h5 class="fw-bolder"><c:out value="${itemlist.itemname}" /></h5>
+   
+        <!-- Product actions-->
+          <div class="text-center">
+            <a class="btn btn-outline-dark mt-auto">제품 상세보기</a>
+          </div>
+        
+    </div>
+  </c:forEach>
+</body>
+```
+  
+#### (2)itemController.java
+```java
+(... 생략 ...)
+
+@Controller
+public class ItemController {
+	private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
+
+	@Autowired
+	private ItemService itemService;
+
+	/* 상품 리스트 페이지 (카테고리-대분류) */
+	@RequestMapping(value = "/itemListL", method = RequestMethod.GET)
+	public String itemListL(Model model, HttpServletResponse response, Integer cat) throws Exception {
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 상품 리스트 페이지 진입");
+
+		List<ItemVO> list = itemService.itemListL(cat);
+		logger.info("---------------글 목록 확인---------" + list);
+		model.addAttribute("itemlist", list);
+
+		return "item/itemList";
+	}
+
+	/* 상품 리스트 페이지 (카테고리-중분류) */
+	@RequestMapping(value = "/itemList", method = RequestMethod.GET)
+	public String itemList(Model model, HttpServletResponse response, Integer cat) throws Exception {
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 상품 리스트 페이지 진입");
+
+		List<ItemVO> list = itemService.itemList(cat);
+		logger.info("---------------글 목록 확인---------" + list);
+		model.addAttribute("itemlist", list);
+
+		return "item/itemList";
+	}
+
+}
+```
+
+#### (3)itemServiceImpl.java
+```java
+(... 생략 ...)
+
+@Service
+public class ItemServiceImpl implements ItemService {
+	@Autowired
+	ItemDAO dao;
+
+	/* 상품 목록 대분류 */
+	@Override
+	public List<ItemVO> itemListL(Integer cat) throws Exception {
+		return dao.itemListL(cat);
+	}
+
+	/* 상품 목록 중분류 */
+	@Override
+	public List<ItemVO> itemList(Integer cat) throws Exception {
+		return dao.itemList(cat);
+	}
+}
+```
+
+#### (4)itemDAOImpl.java
+```java
+(... 생략 ...)
+
+@Repository
+public class ItemDAOImpl implements ItemDAO {
+	@Autowired
+	SqlSession sql;
+
+	/* 상품 목록 대분류 */
+	@Override
+	public List<ItemVO> itemListL(Integer cat) throws Exception {
+
+		return sql.selectList("mapper.Item_SQL.item_listL", cat);
+	}
+
+	/* 상품 목록 중분류 */
+	@Override
+	public List<ItemVO> itemList(Integer cat) throws Exception {
+		return sql.selectList("mapper.Item_SQL.item_list", cat);
+	}
+}
+```
+  
+#### (5)Item_SQL.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="mapper.Item_SQL">
+    
+	<resultMap type="ItemVO" id="itemlist">
+		<result column="ITEMNUM" property="itemnum" jdbcType="INTEGER" javaType="Integer" />
+		<result column="ITEMCAT1" property="itemcat1" jdbcType="INTEGER" javaType="Integer" />
+		<result column="ITEMCAT2" property="itemcat2" jdbcType="INTEGER" javaType="Integer" />
+		<result column="ITEMNAME" property="itemname" jdbcType="VARCHAR" javaType="String" />
+	</resultMap>
+	
+  	<!-- 대분류 -->
+	<select id="item_listL" resultMap="itemlist">
+		SELECT *
+		FROM ITEM
+		WHERE itemcat1 = #{itemcat1}
+	</select>
+	
+	<!-- 중분류 -->
+	<select id="item_list" resultMap="itemlist">
+		SELECT *
+		FROM ITEM
+		WHERE itemcat2 = #{itemcat2}
+	</select>
+</mapper>
+```
+</p>
+</details>
+
+<details>
+<summary><h3> 상품 상세페이지 구현 코드</h3></summary>
+<p>
+
+#### (1-1)itemDetail.jsp(body)
+```html
+(... 생략 ...)
+```
+  
+#### (1-2)itemDetail.jsp(script)
 ```html
 ```
+#### (2)itemController.java
+```java
+
+```
+
+#### (3)itemServiceImpl.java
+```java
+
+```
+
+#### (4)itemDAOImpl.java
+```java
+
+```
+  
+#### (5)Item_SQL.xml
+```xml
+
+```
+  
 </p>
 </details>
