@@ -68,15 +68,8 @@
 
 #### (1-1)join.jsp(body)
 ```html
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<!DOCTYPE html>
-<html>
-
-<head>
-  (...)
-</head>
-
+(...생략...)
+	
 <body>
 	<!-- wrapper : 화면 전체랩 -->
 	<div class="wrap">
@@ -86,9 +79,9 @@
 			<!-- 아이디 -->
 			<div>
 				<div class="sub_title">아이디</div>
-				
+
 				<input class="id_input" name="id" id="id" placeholder="아이디">
-				
+
 				<span class="id_input_re_1">사용 가능한 아이디입니다.</span> 
 				<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
 			</div>
@@ -96,10 +89,10 @@
 			<!-- 비밀번호 -->
 			<div>
 				<div class="sub_title">비밀번호</div>
-				
+
 				<input class="pw_input" type="password" id="pw" name="pw" placeholder="비밀번호"/> 
 				<input class="pwck_input" type="password" id="pwcheck" placeholder="비밀번호 확인"/>
-				
+
 				<div>
 					<!-- 비밀번호 일치여부 확인 -->
 					<font id="chkNotice" size="3"></font>
@@ -154,9 +147,7 @@
 		<!-- form 끝 -->
 	</div>
 	<!-- 화면 전체랩 끝 -->
-
 </body>
-</html>
 ```
 
 #### (1-2)join.jsp(script)  
