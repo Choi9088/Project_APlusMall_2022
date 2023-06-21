@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>s
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE>
 <html>
@@ -39,7 +39,7 @@
 		background-color: lightgray;
 	}
 	/* 셀렉트박스 */
-	.ColorList1 {
+	.OptionList1 {
 		width: 650px;
 		height: 35px;
 		border: 1px solid gray;
@@ -113,21 +113,21 @@
 				<!-- 상품명 -->
 				<table> 
 					<tr>
-						<td class="itemtext"><font class="itemtext">${detail.itemname}</font></td>
+						<td class="itemtext">${detail.itemname}</td>
 					</tr>
 				</table>
 				<hr style="border-top: 1px solid #bbb;" width=670px>
 				<!-- 배송정보 -->
 				<table> 
-					<tr>
-						<td width="350px"><font size="4">배송비</font></td>
-						<td><font size="4">&nbsp;선불3,000원(50,000원 이상 무료배송)</font></td>
+					<tr style="font-size:110%">
+						<td width="350px">배송비</td>
+						<td>&nbsp;선불3,000원(50,000원 이상 무료배송)</td>
 					</tr>
 				</table>
 				<table>
-					<tr>
-						<td width="540px"><font size="4">배송종류</font></td>
-						<td><font size="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;국내배송</font></td>
+					<tr style="font-size:110%">
+						<td width="540px">배송종류</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;국내배송</td>
 					</tr>
 				</table> <br> <br>
 				
@@ -135,17 +135,14 @@
 				<div id="item_option">
 					<table>
 						<tr>
-							<td> <select name="ColorList" id="ColorList"
-								class="ColorList1">
+							<td> <select name="OptionList" id="OptionList" class="OptionList1">
 									<option value="">================ (필수)옵션: 색상/용량 선택 ================</option>
 									<c:forEach var="list1" items="${list1}" varStatus="index">
-										<c:if test="${list1.itemstock == 0}">
-											<option id="ba" value="${list1.itemoption}"
-												disabled="disabled">${list1.itemoption}(품절)</option>
+										<c:if test="${list1.itemstock == 0}"> <!-- 재고0인 상품은 선택 불가 -->
+											<option id="ba" value="${list1.itemoption}" disabled="disabled">${list1.itemoption}(품절)</option>
 										</c:if>
 										<c:if test="${list1.itemstock != 0}">
-											<option value="${list1.itemoption}">${list1.itemoption}
-											</option>
+											<option value="${list1.itemoption}">${list1.itemoption}</option>
 										</c:if>
 									</c:forEach>
 							</select> </td>
@@ -165,8 +162,7 @@
 				<!-- 중간 라인(생략가능) -->
 				<table>
 					<tr>
-						<td><hr style="border-top: 1px solid #bbb;" width=670px>
-						<td>
+						<td><hr style="border-top: 1px solid #bbb;" width=670px><td>
 					</tr>
 				</table>
 
@@ -177,7 +173,7 @@
 			</div>
 		</div> <!-- 상품정보 영역 끝 -->
 		<br>
-		
+
 		<div style="clear: both;"></div>
 		
 		<!-- 상세이미지 영역(생략가능) -->
@@ -226,14 +222,13 @@
 <script type="text/javascript">
 
 // 상품금액출력
-var color;
+var option;
 var num;
-var itemcode;
-$('#ColorList').on("change", function() { // 셀렉트 박스 
-	color = $("#ColorList option:selected").val();
+$('#OptionList').on("change", function() {
+	option = $("#OptionList option:selected").val();
 	num = ${detail.itemnum}
 	var data = {
-		color : color,
+		option : option,
 		num : num
 	}
 	$.ajax({
@@ -245,30 +240,20 @@ $('#ColorList').on("change", function() { // 셀렉트 박스
 			$('.totals-value').text(result);
 			console.log("확인 : " + result);
 			var a = result;
-			if (result) {
-				// alert("완료"+a);
-			} else {
-				//  alert("전송된 값 없음"+result);  
-			}
 		},
 		error : function() {
 			// alert("에러 발생"+result); 
 		}
-	});// 아작스 끝 
-
-})
+	});
+}) // 상품금액출력 끝
 
 // 구매버튼 
 var code;
 $("#goodsOrder").on("click", function() {
-
-	//  alert(num); 
-
 	order();
 });
 
 function order() {
-
 	if (num == undefined) {
 		alert("상품을 선택해 주세요");
 	} else {
@@ -276,7 +261,7 @@ function order() {
 			type : "get",
 			url : "/itemCode",
 			data : {
-				color : color,
+				option : option,
 				num : num
 			},
 			async : false,// 전역 변수 보내기
@@ -289,13 +274,11 @@ function order() {
 					// alert("완료"+code);  
 				} else {
 					// alert("전송된 값 없음"+result); 
-
 				}
 			},
 			error : function() {
 				// alert("에러 발생"+result); 
 			}
-
 		});// 아작스 끝 
 		if (window.confirm("구매하시겠습니까?")) {
 			location.href = "/order?code="+code;
@@ -312,7 +295,7 @@ $("#insertBasket").on("click", function() { // 장바구니
 			type : "get",
 			url : "/itemCode",
 			data : {
-				color : color,
+				option : option,
 				num : num
 			},
 			async : false,//전역 변수 보내기

@@ -52,12 +52,15 @@ public class ItemController {
 	public String itemDetail(Model model, Integer num, Integer itemnum, HttpServletResponse response) throws Exception {
 		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 상품 상세 페이지 진입");
 
+		//상품정보 불러오기
 		ItemVO vo = itemService.itemDetail(num);
 		model.addAttribute("detail", vo);
-
+		
+		//옵션 불러오기
 		List<ItemAttrVO> list = itemService.itemAttr(num);
 		model.addAttribute("list1", list);
 
+		//리뷰 불러오기
 		List<ReviewVO> review = itemService.itemreviewlist(num);
 		model.addAttribute("review", review);
 		return "item/itemDetail";
@@ -66,38 +69,37 @@ public class ItemController {
 	/* 상품 상세페이지 option 선택 ajax */
 	@RequestMapping(value = "/itemOp", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-	public String itemOp(ItemAttrVO vo, Model model, @RequestParam("color") String color,
+	public String itemOp(ItemAttrVO vo, Model model, @RequestParam("option") String option,
 			@RequestParam("num") Integer num) throws Exception {
 		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  진입");
-		vo.setItemoption(color);
+		vo.setItemoption(option);
 		vo.setItemnum(num);
 		vo = itemService.itemOp(vo);
 
 		Integer cost = vo.getItemcost();
 		String to = Integer.toString(cost);
-		
 
-		logger.info("itemOp.cost" + cost);
-		logger.info("vo" + vo);
+		logger.info("itemOp.cost = " + cost);
+		logger.info("vo = " + vo);
 
 		return to;
 	}
 
-	/* 상품 상세페이지 옵션 선택시 가격 표시 ajax */
+	/* 상품 상세페이지 구매, 장바구니 ajax용 Controller */
 	@RequestMapping(value = "/itemCode", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-	public String itemCodeGET(ItemAttrVO vo, Model model, @RequestParam("color") String color,
+	public String itemCodeGET(ItemAttrVO vo, Model model, @RequestParam("option") String option,
 			@RequestParam("num") Integer num) throws Exception {
 		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  진입");
-		vo.setItemoption(color);
+		vo.setItemoption(option);
 		vo.setItemnum(num);
 
 		vo = itemService.itemOp(vo);
 
-		Integer cost = vo.getItemcode();
-		String to = Integer.toString(cost);
+		Integer code = vo.getItemcode();
+		String to = Integer.toString(code);
 
-		logger.info("itemCode.cost" + cost);
+		logger.info("itemCode.code" + code);
 		logger.info("vo" + vo);
 
 		return to;
