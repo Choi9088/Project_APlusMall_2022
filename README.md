@@ -279,25 +279,6 @@ $(function() {
 ```
 #### (2)MemberController.java
 ```java
-package com.aplus.controller;
-
-import java.util.Random;
-
-import javax.mail.internet.MimeMessage;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.aplus.model.MemberVO;
-import com.aplus.service.MemberService;
-
 @Controller
 public class MemberController {
 
@@ -313,10 +294,7 @@ public class MemberController {
 	@RequestMapping(value = "/joinAction", method = RequestMethod.POST)
 	public String joinPost(MemberVO member) throws Exception {
   
-		/* 회원가입 서비스 실행 */
 		memberService.memberJoin(member);
-
-		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 회원가입 성공");
 
 		return "redirect:/main";
 	}
@@ -325,8 +303,6 @@ public class MemberController {
 	@RequestMapping(value = "/memberIdChk", method = RequestMethod.POST)
 	@ResponseBody
 	public String memberIdChkPOST(String id) throws Exception {
-
-		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> memberIdChk 진입");
 		
 		logger.info("vo 진입" + id);
 		int result = memberService.idCheck(id);
@@ -343,22 +319,6 @@ public class MemberController {
 ```
 #### (3)MemberServiceImpl.java
 ```java
-package com.aplus.service;
-
-import java.io.PrintWriter;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.aplus.controller.LoginController;
-import com.aplus.dao.MemberDAO;
-import com.aplus.model.MemberVO;
-
 @Service
 public class MemberServiceImpl implements MemberService {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -382,14 +342,6 @@ public class MemberServiceImpl implements MemberService {
 
 #### (4)MemberDAOImpl.java
 ```java
-package com.aplus.dao;
-
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import com.aplus.model.MemberVO;
-
 @Repository
 public class MemberDAOimpl implements MemberDAO {
 	@Autowired
@@ -412,10 +364,6 @@ public class MemberDAOimpl implements MemberDAO {
 
 #### (5)Member_SQL.xml
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.Member_SQL">
 
 	<!-- 회원가입 -->
