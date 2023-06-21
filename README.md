@@ -42,7 +42,7 @@
 - Tiles설정을 이용해 전체 페이지에 헤더와 푸터 일괄적용
 - 부트스트랩으로 슬라이더를 적용시켜 이벤트, 상품페이지로 이동 구현
 
-<details><summary><h3> 메인페이지 구현 코드</h3></summary>
+<details><summary><h4> 메인페이지 구현 코드</h4></summary>
 <p>
 
 #### (1)main.jsp
@@ -190,7 +190,7 @@ public class MainController {
 - 회원가입 기능 구현
 - ID중복여부, 비밀번호 일치여부, 주소 검색 및 입력기능 구현
 
-<details><summary><h3> 회원가입 페이지 구현 코드</h3></summary>
+<details><summary><h4> 회원가입 페이지 구현 코드</h4></summary>
 <p>
 
 #### (1-1)join.jsp(body)
@@ -516,7 +516,7 @@ public class MemberDAOimpl implements MemberDAO {
 - 상품상세페이지 : 옵션 선택, 상품별 리뷰 조회
 
 <details>
-<summary><h3> 상품목록 페이지 구현 코드</h3></summary>
+<summary><h4> 상품목록 페이지 구현 코드</h4></summary>
 <p>
 
 #### (1-1)itemList.jsp(body)
@@ -663,7 +663,7 @@ public class ItemDAOImpl implements ItemDAO {
 </details>
 
 <details>
-<summary><h3> 상품 상세페이지 구현 코드</h3></summary>
+<summary><h4> 상품 상세페이지 구현 코드</h4></summary>
 <p>
 
 #### (1-1)itemDetail.jsp(body)
