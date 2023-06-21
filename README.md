@@ -612,29 +612,252 @@ public class ItemDAOImpl implements ItemDAO {
 #### (1-1)itemDetail.jsp(body)
 ```html
 (... 생략 ...)
+<body>
+	<div id="wrapper"> <!-- 화면 전체영역 -->
+		<input type="hidden" id="IDX" name="IDX" value="${detail.itemnum}"> <br>
+			
+			<!-- 상품정보 좌측 이미지 영역 -->
+			<div style="float: left; width: 500;">
+				<table>
+					<tr><td><img src="${detail.itemdetailimg}" width="500" height="500" /></td></tr>
+				</table>
+			</div>
+			
+			<!-- 상품정보 우측영역 -->
+				<!-- 상품명 -->
+				<table> 
+					<tr><td class="itemtext">${detail.itemname}</td></tr>
+				</table>
+				
+				<!-- 상품 옵션선택 영역 -->
+				<div id="item_option">
+					<table>
+						<tr> <td> <select name="OptionList" id="OptionList" class="OptionList1">
+									<option value="">================ (필수)옵션: 색상/용량 선택 ================</option>
+									
+									<c:forEach var="list1" items="${list1}" varStatus="index">
+										<c:if test="${list1.itemstock == 0}"> <!-- 재고0인 상품은 선택 불가 -->
+											<option id="ba" value="${list1.itemoption}" disabled="disabled">${list1.itemoption}(품절)</option>
+										</c:if>
+										<c:if test="${list1.itemstock != 0}">
+											<option value="${list1.itemoption}">${list1.itemoption}</option>
+										</c:if>
+									</c:forEach>
+							</select> </td> </tr>
+					</table>
+				</div>
+				
+				<!-- 총 상품금액 -->
+				<div class="totals-item totals-item-total"
+					style="float: left; margin-left: 400px;">
+					<label class="total_price">총상품금액</label>&nbsp;&nbsp;
+					<div class="total_price" style="float: right;">원</div>
+					<div class="totals-value" id="cart-total" style="float: right;">0</div>
+				</div> 
+		<!-- 상품정보 영역 끝 -->
+
+		<div style="clear: both;"></div>
+
+		<!-- 리뷰 영역 -->
+		<div id="rtable" align="center">
+			<div id="rtitle">상품리뷰</div>
+			
+			<table class="table">
+				<!-- 게시판 상단 메뉴 -->
+				<thead class="table-dark">
+					<tr>
+						<th scope="col" class="col-2" id="title">작성일</th>
+						<th scope="col" class="col-2" id="title">작성자</th>
+						<th scope="col" class="col-50" id="title">제목</th>
+						<th scope="col" class="col-50" id="title">내용</th>
+					</tr>
+				</thead>
+			
+				<!-- 게시글 목록 -->
+				<tbody>
+					<c:forEach var="review" items="${review}" varStatus="index">
+						<tbody id="reviewList" name="reviewList">
+							<tr>
+								<td class="center">${review.reviewdate}</td>
+								<td class="center">${review.id}</td>
+								<td class="center">${review.reviewtitle}</td>
+								<td class="center">${review.reviewcontent}</td>
+							</tr>
+						</tbody>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div> <!-- 리뷰 영역 끝 -->
+	</div>
+	<form id="commonForm" name="commonForm"></form>
+</body>
 ```
   
 #### (1-2)itemDetail.jsp(script)
 ```html
+<script>
+
+// 상품금액출력
+var option;
+var num;
+$('#OptionList').on("change", function() {
+	option = $("#OptionList option:selected").val();
+	num = ${detail.itemnum}
+	var data = {
+		option : option,
+		num : num
+	}
+	$.ajax({
+		type : "get",
+		url : "/itemOp",
+		data : data,
+		dataType : "json",
+		success : function(result) {
+			$('.totals-value').text(result);
+			console.log("확인 : " + result);
+			var a = result;
+		},
+		error : function() {
+			// alert("에러 발생"+result); 
+		}
+	});
+})
+</script>
 ```
 #### (2)itemController.java
 ```java
+(... 생략 ...)
 
+@Controller
+public class ItemController {
+	private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
+
+	@Autowired
+	private ItemService itemService;
+	
+	/* 상품 목록&상세&리뷰 */
+	@RequestMapping(value = "/itemDetail", method = { RequestMethod.GET, RequestMethod.POST })
+	public String itemDetail(Model model, Integer num, Integer itemnum, HttpServletResponse response) throws Exception {
+
+		ItemVO vo = itemService.itemDetail(num); //상품정보 불러오기
+		model.addAttribute("detail", vo);
+		
+		List<ItemAttrVO> list = itemService.itemAttr(num); //옵션 불러오기
+		model.addAttribute("list1", list);
+		
+		List<ReviewVO> review = itemService.itemreviewlist(num); //리뷰 불러오기
+		model.addAttribute("review", review);
+		
+		return "item/itemDetail";
+	}
+
+	/* 상품 상세페이지 option 선택 ajax */
+	@RequestMapping(value = "/itemOp", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public String itemOp(ItemAttrVO vo, Model model, @RequestParam("option") String option,
+			@RequestParam("num") Integer num) throws Exception {
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  진입");
+		vo.setItemoption(option);
+		vo.setItemnum(num);
+		vo = itemService.itemOp(vo);
+
+		Integer cost = vo.getItemcost();
+		String to = Integer.toString(cost);
+
+		logger.info("itemOp.cost = " + cost);
+		logger.info("vo = " + vo);
+
+		return to;
+	}
+}
 ```
 
 #### (3)itemServiceImpl.java
 ```java
+(... 생략 ...)
 
+@Service
+public class ItemServiceImpl implements ItemService {
+	@Autowired
+	ItemDAO dao;
+
+	/* 상품 상세페이지 */
+	@Override
+	public ItemVO itemDetail(Integer num) throws Exception {
+		return dao.itemDetail(num);
+	}
+	
+	/* 옵션 불러오기 */
+	@Override
+	public List<ItemAttrVO> itemAttr(Integer num) throws Exception {
+		return dao.itemAttr(num);
+	}
+
+	/* 상품 옵션선택 ajax */
+	@Override
+	public ItemAttrVO itemOp(ItemAttrVO vo) throws Exception {
+		return dao.itemOp(vo);
+	}
+}
 ```
 
 #### (4)itemDAOImpl.java
 ```java
+@Repository
+public class ItemDAOImpl implements ItemDAO {
+	@Autowired
+	SqlSession sql;
 
+	/* 상품 상세 */
+	@Override
+	public ItemVO itemDetail(Integer num) throws Exception {
+		return sql.selectOne("mapper.Item_SQL.item_detail", num);
+	}
+	
+	/* 옵션 불러오기 ajax */
+	@Override
+	public List<ItemAttrVO> itemAttr(Integer num) throws Exception {
+		return sql.selectList("mapper.Item_SQL.item_attr", num);
+	}
+
+	/* 상품 옵션별 금액 불러오기 ajax */
+	@Override
+	public ItemAttrVO itemOp(ItemAttrVO vo) throws Exception {
+		return sql.selectOne("mapper.Item_SQL.item_op", vo);
+	}
+}
 ```
   
 #### (5)Item_SQL.xml
 ```xml
+<!-- 상품상세페이지 -->
+<select id="item_detail" resultType="ItemVO">
+	SELECT *
+	FROM ITEM
+	WHERE itemnum = #{itemnum}
+</select>
 
+<!-- 옵션 박스 ajax -->
+<select id="item_attr" resultMap="itemAttr">
+	SELECT *
+	FROM ITEMATTR
+	WHERE itemnum = #{itemnum}
+</select>
+
+<!-- 가격  받아오는 ajax-->
+<select id="item_op" resultType="ItemAttrVO">
+	SELECT *
+	FROM ITEMATTR
+	WHERE itemnum = #{itemnum}
+	AND itemoption = #{itemoption}
+</select>
+
+<!-- 상품리뷰 목록 -->
+<select id="itemreview_list" resultMap="reviewlist">
+	SELECT *
+	FROM REVIEW
+	WHERE itemnum = #{itemnum}
+</select>
 ```
   
 </p>
